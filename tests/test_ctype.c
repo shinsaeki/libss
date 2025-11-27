@@ -21,3 +21,14 @@ void test_ss_isdigit()
 	}
 }
 
+void test_ss_isalpha()
+{
+	for (int c = 'A'; c <= 'Z'; c++) CU_ASSERT(ss_isalpha(c) == 1);
+	for (int c = 'a'; c <= 'z'; c++) CU_ASSERT(ss_isalpha(c) == 1);
+
+	int invalid[] = {'1', '/', ' ', '&', -1};
+	for (int i = 0; i <= sizeof(invalid) / sizeof(int); i++)
+	{
+		CU_ASSERT(ss_isalpha(invalid[i]) == 0);
+	}
+}

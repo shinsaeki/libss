@@ -15,8 +15,13 @@ int main()
 {
 	CU_initialize_registry();
 
-	CU_pSuite suite = CU_add_suite("libss ctypes tests", NULL, NULL);
-	CU_add_test(suite, "test ss_isdigit", test_ss_isdigit);
+	CU_pSuite suite_ctype = CU_add_suite("libss ctypes tests", NULL, NULL);
+	CU_add_test(suite_ctype, "test ss_isdigit", test_ss_isdigit);
+	CU_add_test(suite_ctype, "test_ss_isalpha", test_ss_isalpha);
+
+	CU_pSuite suite_string = CU_add_suite("libss ctypes tests", NULL, NULL);
+	CU_add_test(suite_string, "test ss_strlen", test_ss_strlen);
+	CU_add_test(suite_string, "test ss_strnlen", test_ss_strnlen);
 
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();
