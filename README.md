@@ -1,5 +1,5 @@
-# sslib
-sslib is a lightweight, educational C library that re-implements core parts of the C standard library (libc) — including string utilities, memory operations, and character helpers — from scratch. The project focuses on clarity, portability, and understanding how low-level routines actually work beneath libc.
+# libss
+libss is a lightweight, educational C library that re-implements core parts of the C standard library (libc) — including string utilities, memory operations, and character helpers — from scratch. The project focuses on clarity, portability, and understanding how low-level routines actually work beneath libc.
 
 This project is created and maintained by **Shintaro Saeki**, primarily for:
 - Understanding low-level libc internals
@@ -15,15 +15,15 @@ This project is created and maintained by **Shintaro Saeki**, primarily for:
   - `isdigit`, `isalpha`, `toupper`…
 - Clean, minimal, readable implementation
 - Optional unit tests (CUnit)
-- Builds into a static library: `sslib.a`
+- Builds into a static library: `libss.a`
 - Simple & modular folder structure
 
 ## Project Structure
 ```
-sslib/
+libss/
 │
 ├── include/
-│   └── sslib.h
+│   └── libss.h
 │
 ├── src/
 │   ├── strlen.c
@@ -38,7 +38,7 @@ sslib/
 │   └── …
 │
 ├── tests/
-│   └── test_sslib.c
+│   └── test_libss.c
 │
 ├── Makefile
 └── README.md
