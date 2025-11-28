@@ -1,21 +1,24 @@
 /* ===================================================================== */
 /*                         l i b s s   (L I B C)                         */
 /* --------------------------------------------------------------------- */
-/* File   : ss_strchr.c                                                  */
+/* File   : ss_memset.c                                                  */
 /* Author : Shintaro Saeki                                               */
-/* Created: 2025-11-27 19:47 JST                                         */
+/* Created: 2025-11-27 21:55 JST                                         */
 /* Desc   : A minimal re-implementation of core libc utilities.          */
 /* ===================================================================== */
 
 #include "../include/libss.h"
 
-char *ss_strchr(const char *s, int c)
+void *ss_memset(void *b, int c, size_t len)
 {
-	for (;; ++s)
+	unsigned char *p = b;
+	unsigned char uc = c;
+
+	while (len--) 
 	{
-		if (*s == c)
-			return (char *)s;
-		if (*s == '\0')
-			return NULL;
+		*p = uc;
+		p++;
 	}
+
+	return b;
 }

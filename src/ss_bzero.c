@@ -1,21 +1,15 @@
 /* ===================================================================== */
 /*                         l i b s s   (L I B C)                         */
 /* --------------------------------------------------------------------- */
-/* File   : ss_strchr.c                                                  */
+/* File   : ss_bzero.c                                                   */
 /* Author : Shintaro Saeki                                               */
-/* Created: 2025-11-27 19:47 JST                                         */
+/* Created: 2025-11-27 22:24 JST                                         */
 /* Desc   : A minimal re-implementation of core libc utilities.          */
 /* ===================================================================== */
 
 #include "../include/libss.h"
 
-char *ss_strchr(const char *s, int c)
+void ss_bzero(void *s, size_t n)
 {
-	for (;; ++s)
-	{
-		if (*s == c)
-			return (char *)s;
-		if (*s == '\0')
-			return NULL;
-	}
+	ss_memset(s, 0, n);
 }
