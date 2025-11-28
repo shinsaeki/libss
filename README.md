@@ -43,3 +43,35 @@ libss/
 ├── Makefile
 └── README.md
 ```
+
+## Additional Functions
+### ss_substr
+
+**Prototype**
+```c
+char *ss_substr(char const *s, unsigned int start, size_t len);
+```
+
+**Parameters**
+- `s`  
+  The original string from which the substring will be created.
+- `start`  
+  The starting index of the substring within `s`.
+- `len`  
+  The maximum length of the substring to be allocated.
+
+**Return value**
+- A newly allocated substring.
+- `NULL` if the allocation fails.
+
+**External functions**
+- `malloc`
+
+**Description**  
+Allocates (with `malloc`) and returns a substring from the string `s`.  
+The substring begins at index `start` and has a maximum size of `len`.
+
+If `start` is greater than or equal to the length of `s`, an empty string (`""`) is returned.  
+If `len` exceeds the remaining characters in `s`, only the available portion is copied.
+
+

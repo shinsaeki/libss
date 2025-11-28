@@ -31,6 +31,9 @@ int main()
 	CU_add_test(suite_string, "test ss_strrchr", test_ss_strrchr);
 	CU_add_test(suite_string, "test ss_strlcpy", test_ss_strlcpy);
 	CU_add_test(suite_string, "test ss_strlcat", test_ss_strlcat);
+	CU_add_test(suite_string, "test ss_strnstr", test_ss_strnstr);
+	CU_add_test(suite_string, "test ss_atoi", test_ss_atoi);
+	CU_add_test(suite_string, "test ss_strdup", test_ss_strdup);
 
 	CU_pSuite suite_memory = CU_add_suite("libss memory tests", NULL, NULL);
 	CU_add_test(suite_memory, "test ss_memset", test_ss_memset);
@@ -39,6 +42,7 @@ int main()
 	CU_add_test(suite_memory, "test ss_memcpy", test_ss_memcpy);
 	CU_add_test(suite_memory, "test ss_memmove", test_ss_memmove);
 	CU_add_test(suite_memory, "test ss_memcmp", test_ss_memcmp);
+	CU_add_test(suite_memory, "test ss_calloc", test_ss_calloc);
 
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();

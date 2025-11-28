@@ -9,6 +9,7 @@
 
 #include <CUnit/CUnit.h>
 #include <string.h>
+#include <limits.h>
 #include "../include/libss.h"
 
 void test_ss_strlen()
@@ -266,5 +267,241 @@ void test_ss_strlcat()
 			CU_ASSERT(ra == rb);
 			CU_ASSERT(memcmp(a, b, 50) == 0);
 		}
+	}
+}
+
+void test_ss_strnstr()
+{
+	{
+		char *res = ss_strnstr("HelloWorld", "World", 10);
+		CU_ASSERT_PTR_NOT_NULL(res);
+		CU_ASSERT_STRING_EQUAL(res, "World");
+	}
+
+	{
+		char *res = ss_strnstr("HelloWorld", "World", 5);
+		CU_ASSERT_PTR_NULL(res);
+	}
+
+	{
+		char *res = ss_strnstr("ABCDE", "", 5);
+		CU_ASSERT_STRING_EQUAL(res, "ABCDE");
+	}
+
+	{
+		char *res = ss_strnstr("", "A", 1);
+		CU_ASSERT_PTR_NULL(res);
+	}
+
+	{
+		char *res = ss_strnstr("ABCDE", "ABC", 5);
+		CU_ASSERT_STRING_EQUAL(res, "ABCDE");
+	}
+
+	{
+		char *res = ss_strnstr("ABC", "ABCD", 3);
+		CU_ASSERT_PTR_NULL(res);
+	}
+
+	{
+		char *res = ss_strnstr("AAAAB", "AAB", 5);
+		CU_ASSERT_PTR_NOT_NULL(res);
+		CU_ASSERT_STRING_EQUAL(res, "AAB");
+	}
+
+	{
+		char *res = ss_strnstr("ABCDE", "A", 0);
+		CU_ASSERT_PTR_NULL(res);
+	}
+
+	{
+		char *res = ss_strnstr("ABCDE", "CDE", 5);
+		CU_ASSERT_PTR_NOT_NULL(res);
+		CU_ASSERT_STRING_EQUAL(res, "CDE");
+	}
+
+	{
+		char *res = ss_strnstr("ABCDE", "CDE", 4);
+		CU_ASSERT_PTR_NULL(res);
+	}
+
+	{
+		char *res = ss_strnstr("AAAAABC", "AABC", 7);
+		CU_ASSERT_PTR_NOT_NULL(res);
+		CU_ASSERT_STRING_EQUAL(res, "AABC");
+	}
+
+	{
+		char *res = ss_strnstr("ABCDE", "C", 5);
+		CU_ASSERT_STRING_EQUAL(res, "CDE");
+	}
+
+	{
+		char *res = ss_strnstr("BBBBBBBBBBCDE", "BBC", 14);
+		CU_ASSERT_PTR_NOT_NULL(res);
+		CU_ASSERT_STRING_EQUAL(res, "BBCDE");
+	}
+
+	#ifdef HAVE_STRNSTR
+	{
+		const char *h = "HelloWorld";
+		const char *n = "World";
+		size_t len = 10;
+
+		char *std = strnstr(h, n, len);
+		char *my  = ss_strnstr(h, n, len);
+
+		CU_ASSERT((std == NULL && my == NULL) ||
+				(std != NULL && my != NULL && strcmp(std, my) == 0));
+	}
+	#endif
+}
+
+void test_ss_atoi()
+{
+	CU_ASSERT(ss_atoi("0") == 0);
+	CU_ASSERT(ss_atoi("123") == 123);
+	CU_ASSERT(ss_atoi("-99") == -99);
+	CU_ASSERT(ss_atoi("+42") == 42);
+
+	CU_ASSERT(ss_atoi("   123") == 123);
+	CU_ASSERT(ss_atoi("\t\n\v\f\r456") == 456);
+
+	CU_ASSERT(ss_atoi("123abc") == 123);
+	CU_ASSERT(ss_atoi("   -56xyz789") == -56);
+
+	CU_ASSERT(ss_atoi("") == 0);
+	CU_ASSERT(ss_atoi("abc") == 0);
+	CU_ASSERT(ss_atoi("   +-+") == 0);
+	CU_ASSERT(ss_atoi("   +") == 0);
+	CU_ASSERT(ss_atoi("   -") == 0);
+
+	CU_ASSERT(ss_atoi("+-99") == 0);
+	CU_ASSERT(ss_atoi("-+42") == 0);
+	CU_ASSERT(ss_atoi("--57") == 0);
+	CU_ASSERT(ss_atoi("++57") == 0);
+
+	CU_ASSERT(ss_atoi("78+9") == 78);
+	CU_ASSERT(ss_atoi("-12-34") == -12);
+
+	{
+		char buf[32];
+		snprintf(buf, sizeof(buf), "%d", INT_MAX);
+		CU_ASSERT(ss_atoi(buf) == INT_MAX);
+
+		snprintf(buf, sizeof(buf), "%d", INT_MIN);
+		CU_ASSERT(ss_atoi(buf) == INT_MIN);
+	}
+
+	CU_ASSERT(ss_atoi("000123") == 123);
+	CU_ASSERT(ss_atoi("-00045") == -45);
+
+	CU_ASSERT(ss_atoi("  0abc") == 0);
+	CU_ASSERT(ss_atoi("  -0xyz") == 0);
+	CU_ASSERT(ss_atoi("  +000") == 0);
+
+	CU_ASSERT(ss_atoi("\0") == 0);
+
+	CU_ASSERT(ss_atoi("               77") == 77);
+
+	CU_ASSERT(ss_atoi("12\0345") == 12);
+
+	CU_ASSERT(ss_atoi("99999") == 99999);
+
+	CU_ASSERT(ss_atoi("+abc") == 0);
+	CU_ASSERT(ss_atoi("-abc") == 0);
+
+	CU_ASSERT(ss_atoi("9999999999") > 0);
+}
+
+void test_ss_strdup()
+{
+	{
+		const char *src = "Hello, World!";
+		char *p = ss_strdup(src);
+
+		CU_ASSERT_PTR_NOT_NULL(p);
+		CU_ASSERT_STRING_EQUAL(p, src);
+
+		free(p);
+	}
+
+	{
+		const char *src = "";
+		char *p = ss_strdup(src);
+
+		CU_ASSERT_PTR_NOT_NULL(p);
+		CU_ASSERT_STRING_EQUAL(p, src);  // "" と一致
+		CU_ASSERT(p[0] == '\0');
+
+		free(p);
+	}
+
+	{
+		char src[] = "ABCDE";
+		char *p = ss_strdup(src);
+
+		src[0] = 'Z';    // src を変更しても
+		CU_ASSERT_STRING_EQUAL(p, "ABCDE");  // p は変わらない
+
+		free(p);
+	}
+
+	{
+		const char *src = "A\tB\nC\rD";
+		char *p = ss_strdup(src);
+
+		CU_ASSERT_PTR_NOT_NULL(p);
+		CU_ASSERT_STRING_EQUAL(p, src);
+
+		free(p);
+	}
+
+	{
+		char src[1024];
+		for (int i = 0; i < 1023; i++)
+			src[i] = 'A';
+		src[1023] = '\0';
+
+		char *p = ss_strdup(src);
+		CU_ASSERT_PTR_NOT_NULL(p);
+		CU_ASSERT_STRING_EQUAL(p, src);
+
+		free(p);
+	}
+
+	{
+		const char *src = NULL;
+		char *p = ss_strdup(src);
+
+		CU_ASSERT_PTR_NULL(p);
+	}
+
+	{
+		const char *src = "XYZ";
+		char *p = ss_strdup(src);
+
+		CU_ASSERT(p[3] == '\0');
+
+		free(p);
+	}
+
+	{
+		const char *src = "98765";
+		char *p = ss_strdup(src);
+
+		CU_ASSERT_PTR_NOT_EQUAL(p, src);
+
+		free(p);
+	}
+
+	{
+		const char *src = "libss-test";
+		char *p = ss_strdup(src);
+
+		CU_ASSERT_STRING_EQUAL(p, src);
+		CU_ASSERT(ss_strlen(p) == ss_strlen(src));
+
+		free(p);
 	}
 }

@@ -378,3 +378,75 @@ void test_ss_memcmp()
 	}
 }
 
+void test_ss_calloc()
+{
+	{
+		size_t n = 10;
+		size_t sz = sizeof(int);
+
+		int *p = ss_calloc(n, sz);
+		CU_ASSERT_PTR_NOT_NULL(p);
+
+		for (size_t i = 0; i < n; i++)
+			CU_ASSERT(p[i] == 0);
+
+		free(p);
+	}
+
+	{
+		size_t n = 20;
+		size_t sz = sizeof(char);
+
+		char *p1 = ss_calloc(n, sz);
+		char *p2 = calloc(n, sz);
+
+		CU_ASSERT_PTR_NOT_NULL(p1);
+		CU_ASSERT_PTR_NOT_NULL(p2);
+
+		CU_ASSERT(memcmp(p1, p2, n * sz) == 0);
+
+		free(p1);
+		free(p2);
+	}
+
+	{
+		size_t count = SIZE_MAX;
+		size_t size = 8;
+
+		void *p = ss_calloc(count, size);
+		CU_ASSERT_PTR_NULL(p);   // overflow → NULL
+	}
+
+	{
+		void *p = ss_calloc(0, 10);
+		CU_ASSERT_TRUE(p == NULL || p != NULL);
+		free(p);   // free(NULL) OK
+	}
+
+	{
+		void *p = ss_calloc(10, 0);
+		CU_ASSERT_TRUE(p == NULL || p != NULL);
+		free(p);
+	}
+
+	{
+		size_t n = 1024;
+		int *p = ss_calloc(n, sizeof(int));
+		CU_ASSERT_PTR_NOT_NULL(p);
+
+		for (size_t i = 0; i < n; i++)
+			CU_ASSERT(p[i] == 0);
+
+		free(p);
+	}
+
+	{
+		char *p = ss_calloc(50, 1);
+		CU_ASSERT_PTR_NOT_NULL(p);
+
+		for (int i = 0; i < 50; i++)
+			CU_ASSERT(p[i] == 0);
+
+		free(p);
+	}
+}
