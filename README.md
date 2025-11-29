@@ -45,6 +45,9 @@ libss/
 ```
 
 ## Additional Functions
+The additional functions are a collection of higher-level utilities that extend the basic features of the C standard library.  
+They include string manipulation (substring, join, trim, split), memory allocation helpers, character mapping functions, and tools for converting or duplicating data.  
+These functions are not direct re-implementations of libc, but provide convenient operations built on top of your base library, enabling more expressive and practical use of strings and memory in C programming.
 
 ### **`ss_substr`**
 
