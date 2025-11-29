@@ -74,4 +74,30 @@ The substring begins at index `start` and has a maximum size of `len`.
 If `start` is greater than or equal to the length of `s`, an empty string (`""`) is returned.  
 If `len` exceeds the remaining characters in `s`, only the available portion is copied.
 
+### ss_strjoin
+
+**Prototype**
+```c
+char *ss_strjoin(char const *s1, char const *s2);
+```
+
+**Parameters**
+- `s1`  
+  The prefix string.
+- `s2`  
+  The suffix string.
+
+**Return value**
+- The newly allocated string resulting from the concatenation of `s1` and `s2`.
+- `NULL` if the memory allocation fails.
+
+**External functions**
+- `malloc`
+
+**Description**  
+Allocates (using `malloc`) and returns a new string, which is the result of the concatenation of `s1` and `s2`.
+
+The new string consists of all characters of `s1` followed by all characters of `s2`.  
+Both input strings must be valid null-terminated strings.  
+If allocation fails, `NULL` is returned.
 
