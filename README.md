@@ -45,7 +45,8 @@ libss/
 ```
 
 ## Additional Functions
-### ss_substr
+
+### **`ss_substr`**
 
 **Prototype**
 ```c
@@ -74,7 +75,7 @@ The substring begins at index `start` and has a maximum size of `len`.
 If `start` is greater than or equal to the length of `s`, an empty string (`""`) is returned.  
 If `len` exceeds the remaining characters in `s`, only the available portion is copied.
 
-### ss_strjoin
+### **`ss_strjoin`**
 
 **Prototype**
 ```c
