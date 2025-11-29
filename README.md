@@ -102,3 +102,31 @@ The new string consists of all characters of `s1` followed by all characters of 
 Both input strings must be valid null-terminated strings.  
 If allocation fails, `NULL` is returned.
 
+## **`ss_strtrim`**
+
+**Prototype**
+```c
+char *ss_strtrim(char const *s1, char const *set);
+```
+
+**Parameters**
+- `s1`  
+  The string to be trimmed.
+
+- `set`  
+  The set of characters to remove from both the beginning and the end of `s1`.
+
+**Return value**
+- The newly allocated trimmed string.
+- `NULL` if the memory allocation fails.
+
+**External functions**
+- `malloc`
+
+**Description**  
+Allocates (using `malloc`) and returns a copy of the string `s1`,  
+with all characters appearing in the set `set` removed from both the start and the end of the string.
+
+Characters in `set` are removed **repeatedly** from the beginning and the end until a character not in `set` is encountered.
+
+If `s1` consists entirely of characters from `set`, an empty string (`""`) is returned.
