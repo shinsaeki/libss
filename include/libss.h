@@ -43,6 +43,9 @@ void *ss_memmove(void *dst, const void *src, size_t n);
 int ss_memcmp(const void *s1, const void *s2, size_t n);
 void *ss_calloc(size_t count, size_t size);
 
+/* additional functions */
+char *ss_substr(const char *s, unsigned int start, size_t len);
+
 /* test functions */
 void test_ss_isdigit();
 void test_ss_isalpha();
@@ -67,5 +70,6 @@ void test_ss_memcpy();
 void test_ss_memmove();
 void test_ss_memcmp();
 void test_ss_calloc();
+void test_ss_substr();
 
 #endif

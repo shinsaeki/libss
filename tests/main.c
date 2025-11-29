@@ -44,6 +44,9 @@ int main()
 	CU_add_test(suite_memory, "test ss_memcmp", test_ss_memcmp);
 	CU_add_test(suite_memory, "test ss_calloc", test_ss_calloc);
 
+	CU_pSuite suite_additional = CU_add_suite("libss additional tests", NULL, NULL);
+	CU_add_test(suite_additional, "test ss_substr", test_ss_substr);
+
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();
 
