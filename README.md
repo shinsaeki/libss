@@ -105,7 +105,7 @@ The new string consists of all characters of `s1` followed by all characters of 
 Both input strings must be valid null-terminated strings.  
 If allocation fails, `NULL` is returned.
 
-## **`ss_strtrim`**
+### **`ss_strtrim`**
 
 **Prototype**
 ```c
@@ -133,3 +133,41 @@ with all characters appearing in the set `set` removed from both the start and t
 Characters in `set` are removed **repeatedly** from the beginning and the end until a character not in `set` is encountered.
 
 If `s1` consists entirely of characters from `set`, an empty string (`""`) is returned.
+
+## **`ss_split`**
+
+**Prototype**
+```c
+char **ss_split(char const *s, char c);
+```
+
+**Parameters**
+- `s`  
+  The string to be split.
+
+- `c`  
+  The delimiter character used to split the string.
+
+**Return value**
+- A dynamically allocated **NULL-terminated array of strings**,  
+  where each element is one of the substrings obtained by splitting `s` at occurrences of `c`.
+- `NULL` if memory allocation fails.
+
+**External functions**
+- `malloc`  
+- `free`
+
+**Description**  
+`ss_split` splits the string `s` into separate substrings using the delimiter `c`.  
+Each substring is newly allocated with `malloc`, and the result is returned as a  
+`NULL`-terminated array of pointers.
+
+Consecutive delimiters are treated as a single separator.  
+If `s` begins or ends with the delimiter, the resulting array **does not contain empty strings** at those positions.
+
+Example: splitting `"  hello world  "` by `' '` results in:
+```
+["hello", "world", NULL]
+```
+
+The caller is responsible for freeing each allocated substring and the array itself.
