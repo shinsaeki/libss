@@ -134,7 +134,7 @@ Characters in `set` are removed **repeatedly** from the beginning and the end un
 
 If `s1` consists entirely of characters from `set`, an empty string (`""`) is returned.
 
-## **`ss_split`**
+### **`ss_split`**
 
 **Prototype**
 ```c
