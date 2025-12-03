@@ -211,3 +211,41 @@ ss_itoa(-123)    → "-123"
 ss_itoa(0)       → "0"
 ss_itoa(-2147483648) → "-2147483648"
 ```
+### **`ss_putstr_fd`**
+
+**Prototype**
+```c
+void ss_putstr_fd(char *s, int fd);
+```
+
+**Parameters**
+- `s`  
+  The string to output.
+
+- `fd`  
+  The file descriptor on which to write.
+
+**Return value**
+- None
+
+**External functions**
+- `write`
+
+**Description**  
+`ss_putstr_fd` outputs the string `s` to the file descriptor `fd`.
+
+This function writes characters exactly as they appear in the string,  
+stopping at the first null terminator (`'\0'`).  
+No additional characters (such as newline) are added automatically.
+
+If `s` is `NULL`, the function does nothing.
+
+Common file descriptors:
+- `1` → standard output (stdout)
+- `2` → standard error (stderr)
+
+**Example**
+```
+ss_putstr_fd("Hello", 1);  // prints "Hello" to stdout
+ss_putstr_fd("Error!", 2); // prints "Error!" to stderr
+```
