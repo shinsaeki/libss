@@ -205,7 +205,7 @@ Memory for the resulting string is allocated using `malloc`.
 The caller is responsible for freeing the returned string.
 
 **Example**
-```c
+```
 ss_itoa(42)      → "42"
 ss_itoa(-123)    → "-123"
 ss_itoa(0)       → "0"
