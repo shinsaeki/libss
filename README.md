@@ -404,6 +404,13 @@ followed by a newline character (`'\n'`).
 
 If `s` is `NULL`, the function does nothing (same behavior as many libft implementations).
 
+**Example**
+```c
+ss_putendl_fd("Hello", 1);  // Output: Hello\n to stdout
+ss_putendl_fd("Error!", 2); // Output: Error!\n to stderr
+```
+
+
 ## Linked List Functions (Bonus Part)
 
 The linked list functions form a collection of essential utilities for creating and manipulating singly linked lists.
@@ -421,8 +428,3 @@ The linked-list utilities enable:
 
 Together, these provide a minimal yet powerful toolkit for working with dynamic sequences of data in C.
 
-**Example**
-```c
-ss_putendl_fd("Hello", 1);  // Output: Hello\n to stdout
-ss_putendl_fd("Error!", 2); // Output: Error!\n to stderr
-```
