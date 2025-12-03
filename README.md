@@ -171,3 +171,43 @@ Example: splitting `"  hello world  "` by `' '` results in:
 ```
 
 The caller is responsible for freeing each allocated substring and the array itself.
+
+### **`ss_itoa`**
+
+**Prototype**
+```c
+char *ss_itoa(int n);
+```
+
+**Parameters**
+- `n`  
+  The integer value to convert into a string.
+
+**Return value**
+- A newly allocated string representing the integer `n`.
+- `NULL` if memory allocation fails.
+
+**External functions**
+- `malloc`
+
+**Description**  
+`ss_itoa` converts the integer `n` into its textual representation and  
+returns the result as a newly allocated null-terminated string.
+
+The function handles:
+
+- Positive numbers  
+- Negative numbers  
+- Zero  
+- The minimum integer value (`INT_MIN`)  
+
+Memory for the resulting string is allocated using `malloc`.  
+The caller is responsible for freeing the returned string.
+
+**Example**
+```c
+ss_itoa(42)      → "42"
+ss_itoa(-123)    → "-123"
+ss_itoa(0)       → "0"
+ss_itoa(-2147483648) → "-2147483648"
+```
