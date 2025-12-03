@@ -211,6 +211,56 @@ ss_itoa(-123)    → "-123"
 ss_itoa(0)       → "0"
 ss_itoa(-2147483648) → "-2147483648"
 ```
+### **`ss_strmapi`**
+
+**Prototype**
+```c
+char *ss_strmapi(char const *s, char (*f)(unsigned int, char));
+```
+
+**Parameters**
+- `s`  
+  The string on which to iterate.
+
+- `f`  
+  A function that takes:
+  - the index of the character (`unsigned int`)
+  - the character itself (`char`)
+  
+  and returns a new character.
+
+**Return value**
+- The newly allocated string resulting from the successive applications of `f`.
+- `NULL` if memory allocation fails or if either argument is `NULL`.
+
+**External functions**
+- `malloc`
+
+**Description**  
+`ss_strmapi` applies the function `f` to every character of the string `s`.  
+The index of each character is passed as the first argument to `f`,  
+and the character itself as the second.
+
+The result is a new string (allocated with `malloc`) in which each character  
+is the value returned by `f` for the corresponding position in `s`.
+
+This function does **not modify the original string**.  
+It creates a transformed copy.
+
+**Example**
+```
+char to_upper_even(unsigned int i, char c)
+{
+    if (i % 2 == 0)
+        return ss_toupper(c);  // your library's toupper
+    return c;
+}
+
+char *result = ss_strmapi("abcdef", to_upper_even);
+// result -> "AbCdEf"
+free(result);
+```
+
 ### **`ss_putstr_fd`**
 
 **Prototype**
