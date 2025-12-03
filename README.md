@@ -374,7 +374,38 @@ Common file descriptors:
 - `2` → standard error (stderr)
 
 **Example**
-```
+```c
 ss_putstr_fd("Hello", 1);  // prints "Hello" to stdout
 ss_putstr_fd("Error!", 2); // prints "Error!" to stderr
+```
+### **`ss_putendl_fd`**
+
+**Prototype**
+```c
+void ss_putendl_fd(char *s, int fd);
+```
+
+**Parameters**
+- `s`  
+  The string to output.
+
+- `fd`  
+  The file descriptor on which to write.
+
+**Return value**  
+- None
+
+**External functions**  
+- `write`
+
+**Description**  
+`ss_putendl_fd` writes the string `s` to the given file descriptor `fd`,  
+followed by a newline character (`'\n'`).
+
+If `s` is `NULL`, the function does nothing (same behavior as many libft implementations).
+
+**Example**
+```c
+ss_putendl_fd("Hello", 1);  // Output: Hello\n to stdout
+ss_putendl_fd("Error!", 2); // Output: Error!\n to stderr
 ```
