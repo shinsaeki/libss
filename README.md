@@ -260,6 +260,55 @@ char *result = ss_strmapi("abcdef", to_upper_even);
 // result -> "AbCdEf"
 free(result);
 ```
+### **`ss_striteri`**
+
+**Prototype**
+```c
+void ss_striteri(char *s, void (*f)(unsigned int, char *));
+```
+
+**Parameters**
+- `s`  
+  The string on which to iterate.
+
+- `f`  
+  The function to apply to each character of `s`.  
+  The function receives:
+  - the character index (`unsigned int`)
+  - a pointer to the character (`char *`), allowing in-place modification.
+
+**Return value**
+- None
+
+**External functions**
+- None
+
+**Description**  
+`ss_striteri` applies the function `f` to every character of the string `s`.
+
+Unlike `ss_strmapi`, which **returns a new string**,  
+`ss_striteri` modifies the string **in place**.
+
+For each iteration:
+- the current index is passed as the first argument  
+- the address of the current character (`char *`) is passed as the second argument  
+so that the callback can modify the string directly.
+
+If `s` or `f` is `NULL`, the function does nothing.
+
+**Example**
+```
+void to_upper_even(unsigned int i, char *c)
+{
+    if (i % 2 == 0)
+        *c = ss_toupper(*c);  // modify original string
+}
+
+char str[] = "abcdef";
+ss_striteri(str, to_upper_even);
+// str → "AbCdEf"
+```
+
 
 ### **`ss_putstr_fd`**
 
