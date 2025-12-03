@@ -308,7 +308,37 @@ char str[] = "abcdef";
 ss_striteri(str, to_upper_even);
 // str → "AbCdEf"
 ```
+### **`ss_putchar_fd`**
 
+**Prototype**
+```c
+void ss_putchar_fd(char c, int fd);
+```
+
+**Parameters**
+- `c`  
+  The character to output.
+
+- `fd`  
+  The file descriptor on which to write.
+
+**Return value**
+- None
+
+**External functions**
+- `write`
+
+**Description**  
+`ss_putchar_fd` writes the character `c` to the file descriptor `fd`.
+
+This function is typically used to print characters to standard output (`fd = 1`), standard error (`fd = 2`), or a file descriptor returned by `open()`.
+
+If an invalid file descriptor is provided, the behavior is undefined (same as `write`).
+
+**Example**
+```c
+ss_putchar_fd('A', 1);  // prints 'A' to stdout
+```
 
 ### **`ss_putstr_fd`**
 
