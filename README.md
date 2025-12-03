@@ -404,6 +404,23 @@ followed by a newline character (`'\n'`).
 
 If `s` is `NULL`, the function does nothing (same behavior as many libft implementations).
 
+## Linked List Functions (Bonus Part)
+
+The linked list functions form a collection of essential utilities for creating and manipulating singly linked lists.
+They provide a lightweight data structure that stores sequences of dynamically allocated nodes, each containing a content pointer and a reference to the next element.
+
+These functions allow you to create nodes, add them to the front or back of a list, traverse or transform the list, delete individual nodes, or clear an entire list safely.
+They are not part of the standard C library, but they offer foundational data-structure capability that supports more advanced programming patterns such as stacks, queues, and iterator-style processing.
+
+The linked-list utilities enable:
+- simple creation of new nodes
+- insertion at either the head or tail of a list
+- iteration with user-defined callbacks
+- deletion of nodes or entire lists with safe memory management
+- transformation of lists into new lists via mapping functions
+
+Together, these provide a minimal yet powerful toolkit for working with dynamic sequences of data in C.
+
 **Example**
 ```c
 ss_putendl_fd("Hello", 1);  // Output: Hello\n to stdout
