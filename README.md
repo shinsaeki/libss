@@ -205,7 +205,7 @@ Memory for the resulting string is allocated using `malloc`.
 The caller is responsible for freeing the returned string.
 
 **Example**
-```
+```c
 ss_itoa(42)      → "42"
 ss_itoa(-123)    → "-123"
 ss_itoa(0)       → "0"
@@ -248,7 +248,7 @@ This function does **not modify the original string**.
 It creates a transformed copy.
 
 **Example**
-```
+```c
 char to_upper_even(unsigned int i, char c)
 {
     if (i % 2 == 0)
@@ -297,7 +297,7 @@ so that the callback can modify the string directly.
 If `s` or `f` is `NULL`, the function does nothing.
 
 **Example**
-```
+```c
 void to_upper_even(unsigned int i, char *c)
 {
     if (i % 2 == 0)
