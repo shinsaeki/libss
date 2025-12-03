@@ -411,7 +411,7 @@ ss_putendl_fd("Error!", 2); // Output: Error!\n to stderr
 ```
 
 
-## Linked List Functions (Bonus Part)
+## Linked List Functions
 
 The linked list functions form a collection of essential utilities for creating and manipulating singly linked lists.
 They provide a lightweight data structure that stores sequences of dynamically allocated nodes, each containing a content pointer and a reference to the next element.
